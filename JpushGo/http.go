@@ -2,11 +2,51 @@ package JpushGo
 
 import (
 	"bytes"
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"runtime"
+	"time"
 )
+
+type Hyper struct {
+	Key       string
+	Secret    string
+	Url       string
+	UserAgent map[string]string
+	Headers   map[string]string
+	Client    *http.Client
+
+	Result []byte
+}
+
+func New(key, secret string, timeOut time.Duration, isGroup bool) *Hyper {
+	hyper := &Hyper{}
+	hyper.Key = key
+	hyper.Secret = secret
+
+	hyper.UserAgent = map[string]string{"User-Agent": hyper.getUserAgent()}
+	hyper.Headers = map[string]string{
+		"Authorization": hyper.getAuthorization(isGroup),
+		"Content-Type":  "application/json",
+	}
+	hyper.Client = &http.Client{Timeout: timeOut * time.Second}
+
+	return hyper
+}
+func (hyper *Hyper) getAuthorization(isGroup bool) string {
+	str := hyper.Key + ":" + hyper.Secret
+	if isGroup {
+		str = "group-" + str
+	}
+	buf := []byte(str)
+	return fmt.Sprintf("Basic %s", base64.StdEncoding.EncodeToString(buf))
+}
+func (hyper *Hyper) getUserAgent() string {
+	return fmt.Sprintf("(%s) go/%s", runtime.GOOS, runtime.Version())
+}
 
 func (hyper *Hyper) Do(req *http.Request) (err error) {
 	if len(hyper.UserAgent) > 0 {
@@ -35,11 +75,13 @@ func (hyper *Hyper) Do(req *http.Request) (err error) {
 	return
 }
 
-func (hyper *Hyper) Post() error {
+func (hyper *Hyper) Post(data interface{}) error {
+	buf, err := json.Marshal(data)
+	if err != nil {
+		return err
+	}
 
-	data := bytes.NewReader([]byte(hyper.Params.Encode()))
-
-	req, err := http.NewRequest("POST", hyper.Url, data)
+	req, err := http.NewRequest("POST", hyper.Url, bytes.NewReader(buf))
 	if err != nil {
 		fmt.Printf("hyper http.NewRequest Error: %#v", err)
 		return err
