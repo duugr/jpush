@@ -95,6 +95,40 @@ func (hyper *Hyper) Post(data interface{}) error {
 	return nil
 }
 
+func (hyper *Hyper) Put(data interface{}) error {
+	buf, err := json.Marshal(data)
+	if err != nil {
+		return err
+	}
+
+	req, err := http.NewRequest("PUT", hyper.Url, bytes.NewReader(buf))
+	if err != nil {
+		fmt.Printf("hyper http.NewRequest Error: %#v", err)
+		return err
+	}
+
+	err = hyper.Do(req)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (hyper *Hyper) Delete() error {
+	req, err := http.NewRequest("DELETE", hyper.Url, nil)
+	if err != nil {
+		fmt.Printf("hyper http.NewRequest Error: %#v", err)
+		return err
+	}
+
+	err = hyper.Do(req)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
 func (hyper *Hyper) Get() error {
 	req, err := http.NewRequest("GET", hyper.Url, nil)
 	if err != nil {
@@ -118,6 +152,11 @@ func (hyper *Hyper) Array() (error, []interface{}) {
 
 func (hyper *Hyper) Map() (error, map[string]interface{}) {
 	result := make(map[string]interface{})
+	err := json.Unmarshal(hyper.Result, &result)
+	return err, result
+}
+func (hyper *Hyper) MapStrings() (error, map[string][]string) {
+	result := make(map[string][]string)
 	err := json.Unmarshal(hyper.Result, &result)
 	return err, result
 }
