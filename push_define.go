@@ -1,5 +1,7 @@
 package JpushGo
 
+var Platform []string
+
 const (
 	// 推送消息 API
 	PUSH_POST = "https://api.jpush.cn/v3/push"
@@ -21,9 +23,9 @@ const (
 	ALIAS   = "alias"
 	ID      = "registration_id"
 
-	IOS      = "ios"
-	ANDROID  = "android"
-	WINPHONE = "winphone"
+	PLATFORM_IOS     Platform = []string{"ios"}
+	PLATFORM_ANDROID Platform = []string{"android"}
+	PLATFORM_ALL     Platform = []string{"ios", "android"}
 
 	CHARSET                    = "UTF-8"
 	CONTENT_TYPE_JSON          = "application/json"
@@ -34,7 +36,7 @@ const (
 type (
 	PushRequest struct {
 		Cid          string            `json: "cid,omitempty"`
-		Platform     string            `json: platform`
+		Platform     Platform          `json: platform`
 		Audience     *PushAudience     `json:"audience,omitempty"`
 		Notification *PushNotification `json:"notification,omitempty"`
 		Message      *PushMessage      `json:"message,omitempty"`

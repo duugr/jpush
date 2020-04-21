@@ -60,7 +60,7 @@ func (hyper *Hyper) Do(req *http.Request) (err error) {
 			req.Header.Set(key, value)
 		}
 	}
-	fmt.Println(req)
+	// fmt.Println(req)
 	resp, err := hyper.Client.Do(req)
 	if err != nil {
 		fmt.Printf("hyper.Client : %v", err)

@@ -17,7 +17,7 @@ func (hyper *Hyper) ScheduleCreateTask(push *ScheduleRequest) (error, map[string
 }
 
 func (hyper *Hyper) ScheduleGetList(page int) (error, map[string]interface{}) {
-	hyper.Url = strings.ReplaceALl(SCHEDULE_GET, "{page}", strconv.Itoa(page))
+	hyper.Url = strings.ReplaceAll(SCHEDULE_GET, "{page}", strconv.Itoa(page))
 	err := hyper.Get()
 	if err != nil {
 		return err, nil
@@ -27,7 +27,7 @@ func (hyper *Hyper) ScheduleGetList(page int) (error, map[string]interface{}) {
 }
 
 func (hyper *Hyper) ScheduleView(id string) (error, map[string]interface{}) {
-	hyper.Url = strings.ReplaceALl(SCHEDULE_ID_GET, "{schedule_id}", id)
+	hyper.Url = strings.ReplaceAll(SCHEDULE_ID_GET, "{schedule_id}", id)
 	err := hyper.Get()
 	if err != nil {
 		return err, nil
@@ -37,7 +37,7 @@ func (hyper *Hyper) ScheduleView(id string) (error, map[string]interface{}) {
 }
 
 func (hyper *Hyper) ScheduleUpdate(id string, req *ScheduleRequest) (error, map[string]interface{}) {
-	hyper.Url = strings.ReplaceALl(SCHEDULE_ID_PUT, "{schedule_id}", id)
+	hyper.Url = strings.ReplaceAll(SCHEDULE_ID_PUT, "{schedule_id}", id)
 
 	err := hyper.Put(req)
 	if err != nil {
@@ -48,7 +48,7 @@ func (hyper *Hyper) ScheduleUpdate(id string, req *ScheduleRequest) (error, map[
 }
 
 func (hyper *Hyper) ScheduleDelete(id string) (error, []byte) {
-	hyper.Url = strings.ReplaceALl(SCHEDULE_ID_DELETE, "{schedule_id}", id)
+	hyper.Url = strings.ReplaceAll(SCHEDULE_ID_DELETE, "{schedule_id}", id)
 
 	err := hyper.Delete()
 	if err != nil {

@@ -12,7 +12,7 @@ func TestScheduleCreateTask(t *testing.T) {
 		Enabled: true,
 		Trigger: &ScheduleTrigger{
 			Single: &ScheduleTriggerSingle{
-				Timer: "2017-11-04 10:00:00",
+				Timer: "2020-04-30 10:00:00",
 			},
 		},
 		Push: getMsg(),
