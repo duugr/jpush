@@ -1,4 +1,4 @@
-module JpushGo
+module iering.com/go/JpushGo
 
 go 1.13
 
