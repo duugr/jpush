@@ -27,9 +27,9 @@ const (
 
 type (
 	DeviceRequest struct {
-		Tags   *DeviceTagsRequest `json:"tags"`
-		Alias  string             `json:"alias"`
-		Mobile string             `json:"mobile"`
+		Tags   *DeviceTagsRequest `json:"tags,omitempty"`
+		Alias  string             `json:"alias,omitempty"`
+		Mobile string             `json:"mobile,omitempty"`
 	}
 	DeviceEmptyTagsRequest struct {
 		Tags   string `json:"tags"`
