@@ -6,6 +6,8 @@ import (
 )
 
 // cid：推送唯一标识符
+// count 可选参数。数值类型，不传则默认为 1。范围为 [1, 1000]
+// type 可选参数。CID 类型。取值：push（默认），schedule
 func (hyper *Hyper) GetCid(count int, citType string) (error, map[string][]string) {
 	hyper.Url = strings.ReplaceAll(PUSH_CID_GET, "{count}", strconv.Itoa(count))
 	hyper.Url = strings.ReplaceAll(hyper.Url, "{type}", citType)

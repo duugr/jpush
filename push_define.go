@@ -1,7 +1,5 @@
 package JpushGo
 
-var Platform []string
-
 const (
 	// 推送消息 API
 	PUSH_POST = "https://api.jpush.cn/v3/push"
@@ -23,9 +21,9 @@ const (
 	ALIAS   = "alias"
 	ID      = "registration_id"
 
-	PLATFORM_IOS     Platform = []string{"ios"}
-	PLATFORM_ANDROID Platform = []string{"android"}
-	PLATFORM_ALL     Platform = []string{"ios", "android"}
+	PLATFORM_IOS     = []string{"ios"}
+	PLATFORM_ANDROID = []string{"android"}
+	PLATFORM_ALL     = []string{"ios", "android"}
 
 	CHARSET                    = "UTF-8"
 	CONTENT_TYPE_JSON          = "application/json"
