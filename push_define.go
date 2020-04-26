@@ -34,7 +34,7 @@ const (
 type (
 	PushRequest struct {
 		Cid          string            `json: "cid,omitempty"`
-		Platform     Platform          `json: platform`
+		Platform     []string          `json: platform`
 		Audience     *PushAudience     `json:"audience,omitempty"`
 		Notification *PushNotification `json:"notification,omitempty"`
 		Message      *PushMessage      `json:"message,omitempty"`
