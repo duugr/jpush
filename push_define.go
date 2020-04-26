@@ -21,14 +21,19 @@ const (
 	ALIAS   = "alias"
 	ID      = "registration_id"
 
-	PLATFORM_IOS     = []string{"ios"}
-	PLATFORM_ANDROID = []string{"android"}
-	PLATFORM_ALL     = []string{"ios", "android"}
+	IOS     = "ios"
+	ANDROID = "android"
 
 	CHARSET                    = "UTF-8"
 	CONTENT_TYPE_JSON          = "application/json"
 	DEFAULT_CONNECTION_TIMEOUT = 20 //seconds
 	DEFAULT_SOCKET_TIMEOUT     = 30 // seconds
+)
+
+var (
+	Platform_IOS     = []string{IOS}
+	Platform_Android = []string{ANDROID}
+	Platform_All     = []string{IOS, ANDROID}
 )
 
 type (

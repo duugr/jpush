@@ -11,7 +11,7 @@ func getMsg() *PushRequest {
 	params["url"] = "https://www.jpush.cn"
 	req := &PushRequest{
 		Cid:      "7d431e42dfa6a6d693ac2d04-11ea3aaf-6b80-4acc-9b97-70cc2085e03b",
-		Platform: PLATFORM_ALL,
+		Platform: Platform_All,
 		Audience: &PushAudience{
 			RegistrationId: []string{"0815fd9e991"},
 		},
