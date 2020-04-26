@@ -31,9 +31,9 @@ const (
 )
 
 var (
-	Platform_IOS     = []string{IOS}
-	Platform_Android = []string{ANDROID}
-	Platform_All     = []string{IOS, ANDROID}
+	PlatformIOS     = []string{IOS}
+	PlatformAndroid = []string{ANDROID}
+	PlatformAll     = []string{IOS, ANDROID}
 )
 
 type (
@@ -105,7 +105,7 @@ type (
 	}
 
 	PushOptions struct {
-		SendNo          int    `json:"sendno,int,omitempty"`
+		SendNo          int64  `json:"sendno,int,omitempty"`
 		TimeToLive      int    `json:"time_to_live,int,omitempty"`
 		OverrideMsgId   int64  `json:"override_msg_id,int64,omitempty"`
 		ApnsProduction  bool   `json:"apns_production"`
