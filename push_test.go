@@ -24,50 +24,26 @@ func getMsg(isAll bool) *PushRequest {
 	params := make(map[string]interface{})
 	params["url"] = "https://www.jpush.cn"
 
-	content := "Message Content"
-	title := "Message Title"
-	var audience interface{}
+	req := NewPush()
+	req.AddCid(cidString)
+	req.PlatformAll()
+	req.AddTitle("Title")
+	req.AddAlert("Content")
+	req.AddExtras(params)
+	req.AddContentType("text")
+	req.AddTimeToLive(60)
+	req.AddApnsCollapseId("jpush_user_158803817123456")
 	if isAll {
-		audience = PUSH_AUDIENCE_ALL
+		req.AudienceAll()
 	} else {
-		audience = &PushAudience{
-			Alias: []string{"697c98b25a2920178b66cd0d"},
-		}
+		req.AddAlias([]string{"697c98b25a2920178b66cd0d"})
 	}
 
-	req := &PushRequest{
-		Cid:      cidString,
-		Platform: PlatformAll,
-		Audience: audience,
-		Notification: &PushNotification{
-			Alert: content,
-			Android: &NotificationAndroid{
-				Alert:  content,
-				Title:  title,
-				Extras: params,
-			},
-			IOS: &NotificationIOS{
-				Alert:  content,
-				Extras: params,
-			},
-		},
-		Message: &PushMessage{
-			MsgContent:  content,
-			Title:       title,
-			ContentType: "text",
-			Extras:      params,
-		},
-		Options: &PushOptions{
-			TimeToLive:     60,
-			ApnsCollapseId: "jpush_user_158803817123456",
-			// ApnsProduction: false,
-		},
-	}
 	return req
 }
 
 func TestPushMessage(t *testing.T) {
-	req := getMsg(true)
+	req := getMsg(false)
 	t.Logf("req %+v, %#v", req, req)
 	err, result := jpush.Push(req, false)
 	if err != nil {

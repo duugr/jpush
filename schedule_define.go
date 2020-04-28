@@ -45,3 +45,52 @@ type (
 		Point     interface{} `json:"point,omitempty"`
 	}
 )
+
+func NewSchedule(isSingle bool) *ScheduleRequest {
+	push := NewPush()
+	trigger := &ScheduleTrigger{}
+
+	if isSingle {
+		trigger.Single = &ScheduleTriggerSingle{}
+	} else {
+		trigger.Periodical = &ScheduleTriggerPeriodical{}
+	}
+
+	return &ScheduleRequest{
+		Push:    push,
+		Trigger: trigger,
+	}
+}
+
+func (s *ScheduleRequest) AddCid(val string) {
+	s.Cid = val
+}
+func (s *ScheduleRequest) AddName(val string) {
+	s.Name = val
+}
+func (s *ScheduleRequest) AddEnabled(val bool) {
+	s.Enabled = val
+}
+
+func (s *ScheduleRequest) AddTimer(val string) {
+	s.Trigger.Single.Timer = val
+}
+
+func (s *ScheduleRequest) AddStart(val string) {
+	s.Trigger.Periodical.Start = val
+}
+func (s *ScheduleRequest) AddEnd(val string) {
+	s.Trigger.Periodical.End = val
+}
+func (s *ScheduleRequest) AddTime(val string) {
+	s.Trigger.Periodical.Time = val
+}
+func (s *ScheduleRequest) AddTimeUnit(val string) {
+	s.Trigger.Periodical.TimeUnit = val
+}
+func (s *ScheduleRequest) AddFrequency(val int) {
+	s.Trigger.Periodical.Frequency = val
+}
+func (s *ScheduleRequest) AddPoint(val interface{}) {
+	s.Trigger.Periodical.Point = val
+}
