@@ -20,19 +20,25 @@ func TestPushGetCid(t *testing.T) {
 	t.Log(result)
 }
 
-func getMsg() *PushRequest {
+func getMsg(isAll bool) *PushRequest {
 	params := make(map[string]interface{})
 	params["url"] = "https://www.jpush.cn"
 
 	content := "Message Content"
 	title := "Message Title"
+	var audience interface{}
+	if isAll {
+		audience = PUSH_AUDIENCE_ALL
+	} else {
+		audience = &PushAudience{
+			Alias: []string{"697c98b25a2920178b66cd0d"},
+		}
+	}
 
 	req := &PushRequest{
 		Cid:      cidString,
 		Platform: PlatformAll,
-		Audience: &PushAudience{
-			Alias: []string{"697c98b25a2920178b66cd0d"},
-		},
+		Audience: audience,
 		Notification: &PushNotification{
 			Alert: content,
 			Android: &NotificationAndroid{
@@ -61,7 +67,7 @@ func getMsg() *PushRequest {
 }
 
 func TestPushMessage(t *testing.T) {
-	req := getMsg()
+	req := getMsg(true)
 	t.Logf("req %+v, %#v", req, req)
 	err, result := jpush.Push(req, false)
 	if err != nil {

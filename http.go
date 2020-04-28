@@ -30,7 +30,7 @@ func New(key, secret string, timeOut time.Duration, isGroup bool) *Hyper {
 	hyper.UserAgent = map[string]string{"User-Agent": hyper.getUserAgent()}
 	hyper.Headers = map[string]string{
 		"Authorization": hyper.getAuthorization(isGroup),
-		"Content-Type":  "application/json",
+		"Content-Type":  CONTENT_TYPE_JSON,
 	}
 	hyper.Client = &http.Client{Timeout: timeOut * time.Second}
 

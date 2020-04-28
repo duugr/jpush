@@ -24,10 +24,9 @@ const (
 	IOS     = "ios"
 	ANDROID = "android"
 
-	CHARSET                    = "UTF-8"
-	CONTENT_TYPE_JSON          = "application/json"
-	DEFAULT_CONNECTION_TIMEOUT = 20 //seconds
-	DEFAULT_SOCKET_TIMEOUT     = 30 // seconds
+	PUSH_AUDIENCE_ALL = "all"
+
+	CONTENT_TYPE_JSON = "application/json"
 )
 
 var (
@@ -38,9 +37,9 @@ var (
 
 type (
 	PushRequest struct {
-		Cid          string            `json:"cid,omitempty"`
+		Cid          string            `json:"cid"`
 		Platform     []string          `json:"platform"`
-		Audience     *PushAudience     `json:"audience,omitempty"`
+		Audience     interface{}       `json:"audience"`
 		Notification *PushNotification `json:"notification,omitempty"`
 		Message      *PushMessage      `json:"message,omitempty"`
 		SmsMessage   *SmsMessage       `json:"sms_message,omitempty"`
