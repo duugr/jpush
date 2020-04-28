@@ -6,32 +6,64 @@ import (
 
 // var jpush = New("7d431e42dfa6a6d693ac2d04", "5e987ac6d2e04d95a9d8f0d1", 30, false)
 
+var cidString string
+
+func TestPushGetCid(t *testing.T) {
+	err, result := jpush.GetCid(1, "push")
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	cidString = result["cidlist"][0]
+
+	t.Log(result)
+}
+
 func getMsg() *PushRequest {
 	params := make(map[string]interface{})
 	params["url"] = "https://www.jpush.cn"
+
+	content := "Message Content"
+	title := "Message Title"
+
 	req := &PushRequest{
-		Cid:      "7d431e42dfa6a6d693ac2d04-11ea3aaf-6b80-4acc-9b97-70cc2085e03b",
-		Platform: Platform_All,
+		Cid:      cidString,
+		Platform: PlatformAll,
 		Audience: &PushAudience{
-			RegistrationId: []string{"0815fd9e991"},
+			Alias: []string{"697c98b25a2920178b66cd0d"},
+		},
+		Notification: &PushNotification{
+			Alert: content,
+			Android: &NotificationAndroid{
+				Alert:  content,
+				Title:  title,
+				Extras: params,
+			},
+			IOS: &NotificationIOS{
+				Alert:  content,
+				Extras: params,
+			},
 		},
 		Message: &PushMessage{
-			MsgContent:  "Message Content",
-			Title:       "Message Title",
+			MsgContent:  content,
+			Title:       title,
 			ContentType: "text",
 			Extras:      params,
 		},
 		Options: &PushOptions{
 			TimeToLive:     60,
-			ApnsCollapseId: "jiguang_test_201706011100",
-			ApnsProduction: true,
+			ApnsCollapseId: "jpush_user_158803817123456",
+			// ApnsProduction: false,
 		},
 	}
 	return req
 }
 
-func TestPushGetCid(t *testing.T) {
-	err, result := jpush.GetCid(1, "push")
+func TestPushMessage(t *testing.T) {
+	req := getMsg()
+	t.Logf("req %+v, %#v", req, req)
+	err, result := jpush.Push(req, false)
 	if err != nil {
 		t.Error(err)
 		return

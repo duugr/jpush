@@ -60,7 +60,7 @@ func (hyper *Hyper) Do(req *http.Request) (err error) {
 			req.Header.Set(key, value)
 		}
 	}
-	// fmt.Println(req)
+
 	resp, err := hyper.Client.Do(req)
 	if err != nil {
 		fmt.Printf("hyper.Client : %v", err)
@@ -80,7 +80,6 @@ func (hyper *Hyper) Post(data interface{}) error {
 	if err != nil {
 		return err
 	}
-
 	req, err := http.NewRequest("POST", hyper.Url, bytes.NewReader(buf))
 	if err != nil {
 		fmt.Printf("hyper http.NewRequest Error: %#v", err)
