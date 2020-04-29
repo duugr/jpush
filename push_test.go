@@ -24,11 +24,9 @@ func getMsg(isAll bool) *PushRequest {
 	params := make(map[string]interface{})
 	params["url"] = "https://www.jpush.cn"
 
-	req := NewPush()
+	req := NewPush("Title", "Content")
 	req.AddCid(cidString)
 	req.PlatformAll()
-	req.AddTitle("Title")
-	req.AddAlert("Content")
 	req.AddExtras(params)
 	req.AddContentType("text")
 	req.AddTimeToLive(60)

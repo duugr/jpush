@@ -99,8 +99,8 @@ type (
 	}
 )
 
-func NewPush() *PushRequest {
-	return &PushRequest{
+func NewPush(title, alert string) *PushRequest {
+	req := &PushRequest{
 		Notification: &PushNotification{
 			Android: &NotificationAndroid{},
 			IOS:     &NotificationIOS{},
@@ -109,6 +109,9 @@ func NewPush() *PushRequest {
 		// SmsMessage: &SmsMessage{},
 		Options: &PushOptions{},
 	}
+	req.AddTitle(title)
+	req.AddAlert(alert)
+	return req
 }
 func (p *PushRequest) AddCid(cid string) {
 	p.Cid = cid

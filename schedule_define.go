@@ -46,8 +46,8 @@ type (
 	}
 )
 
-func NewSchedule(isSingle bool) *ScheduleRequest {
-	push := NewPush()
+func NewSchedule(isSingle bool, title, alert string) *ScheduleRequest {
+	push := NewPush(title, alert)
 	trigger := &ScheduleTrigger{}
 
 	if isSingle {
